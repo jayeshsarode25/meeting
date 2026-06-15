@@ -21,7 +21,7 @@ function toGCal(dateStr, time) {
   return dateStr.replaceAll("-", "") + "T" + time.replaceAll(":", "") + "00Z";
 }
 
-const OWNER_EMAIL = "vronixdigital@gmail.com";
+const OWNER_EMAIL = "info@vronixdigital.com";
 
 // ── Mini Calendar ────────────────────────────────────────────────────────────
 function MiniCalendar({ bookedSlots, bookedIds, onDateClick }) {
@@ -53,27 +53,27 @@ function MiniCalendar({ bookedSlots, bookedIds, onDateClick }) {
 
   return (
     <div style={{
-      background: "linear-gradient(135deg, #f5f3ff 0%, #ede9fe 50%, #ddd6fe 100%)",
-      borderRadius: 24, padding: 24, width: "100%", maxWidth: 380,
-      boxShadow: "0 8px 32px rgba(124,58,237,0.12)"
+      background: "linear-gradient(135deg, rgba(124,58,237,0.15) 0%, rgba(168,85,247,0.1) 100%)",
+      borderRadius: 24, padding: 24, width: "100%", maxWidth: 380, margin: "0 auto", boxSizing: "border-box",
+      boxShadow: "0 8px 32px rgba(124,58,237,0.3)", border: "1px solid #7c3aed", backdropFilter: "blur(10px)"
     }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
         <button onClick={prevMonth} style={{
-          width: 32, height: 32, borderRadius: "50%", border: "1px solid rgba(124,58,237,0.2)",
-          background: "rgba(255,255,255,0.7)", color: "#7c3aed",
-          cursor: "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center"
-        }}>‹</button>
-        <p style={{ color: "#4c1d95", fontWeight: 600, fontSize: 15, letterSpacing: "0.3px" }}>{monthLabel}</p>
+          width: 32, height: 32, borderRadius: "50%", border: "1px solid #7c3aed",
+          background: "rgba(255,255,255,0.1)", color: "#a78bfa",
+          cursor: "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s"
+        }} onMouseEnter={(e) => { e.target.style.background = "rgba(124,58,237,0.2)"; }} onMouseLeave={(e) => { e.target.style.background = "rgba(255,255,255,0.1)"; }}>‹</button>
+        <p style={{ color: "#a78bfa", fontWeight: 600, fontSize: 15, letterSpacing: "0.3px" }}>{monthLabel}</p>
         <button onClick={nextMonth} style={{
-          width: 32, height: 32, borderRadius: "50%", border: "1px solid rgba(124,58,237,0.2)",
-          background: "rgba(255,255,255,0.7)", color: "#7c3aed",
-          cursor: "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center"
-        }}>›</button>
+          width: 32, height: 32, borderRadius: "50%", border: "1px solid #7c3aed",
+          background: "rgba(255,255,255,0.1)", color: "#a78bfa",
+          cursor: "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s"
+        }} onMouseEnter={(e) => { e.target.style.background = "rgba(124,58,237,0.2)"; }} onMouseLeave={(e) => { e.target.style.background = "rgba(255,255,255,0.1)"; }}>›</button>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 4, marginBottom: 8, textAlign: "center" }}>
         {["Su","Mo","Tu","We","Th","Fr","Sa"].map((d) => (
-          <div key={d} style={{ fontSize: 11, color: "#8b5cf6", fontWeight: 500 }}>{d}</div>
+          <div key={d} style={{ fontSize: 11, color: "#9ca3af", fontWeight: 500 }}>{d}</div>
         ))}
       </div>
 
@@ -89,10 +89,10 @@ function MiniCalendar({ bookedSlots, bookedIds, onDateClick }) {
           const hasBooking = bookedDates.has(dateStr);
           const isClickable = !isPast && !isSunday;
 
-          let bg = "transparent", color = "#c4b5fd", border = "none", cursor = "default";
-          if (!isPast && !isSunday) { bg = "rgba(255,255,255,0.7)"; color = "#7c3aed"; border = "1px solid rgba(139,92,246,0.2)"; cursor = "pointer"; }
-          if (isSunday && !isPast) { color = "#c4b5fd"; }
-          if (hasBooking) { bg = "rgba(52,211,153,0.2)"; color = "#059669"; border = "1px solid rgba(52,211,153,0.4)"; cursor = "pointer"; }
+          let bg = "transparent", color = "#6b7280", border = "none", cursor = "default";
+          if (!isPast && !isSunday) { bg = "rgba(124,58,237,0.2)"; color = "#a78bfa"; border = "1px solid #7c3aed"; cursor = "pointer"; }
+          if (isSunday && !isPast) { color = "#6b7280"; }
+          if (hasBooking) { bg = "rgba(52,211,153,0.2)"; color = "#34d399"; border = "1px solid #34d399"; cursor = "pointer"; }
           if (isToday) { bg = "#7c3aed"; color = "#fff"; border = "none"; }
 
           return (
@@ -100,7 +100,7 @@ function MiniCalendar({ bookedSlots, bookedIds, onDateClick }) {
               aspectRatio: "1", display: "flex", alignItems: "center", justifyContent: "center",
               borderRadius: 8, fontSize: 12, fontWeight: hasBooking || isToday ? 600 : 400,
               background: bg, color, border, cursor, transition: "all 0.15s",
-              boxShadow: isToday ? "0 0 16px rgba(124,58,237,0.6)" : "none"
+              boxShadow: isToday ? "0 0 16px rgba(124,58,237,0.8)" : "none"
             }}>
               {d}
             </div>
@@ -111,15 +111,15 @@ function MiniCalendar({ bookedSlots, bookedIds, onDateClick }) {
       <div style={{ display: "flex", gap: 16, marginTop: 16, justifyContent: "center" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
           <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#7c3aed" }} />
-          <span style={{ fontSize: 10, color: "#8b5cf6" }}>Today</span>
+          <span style={{ fontSize: 10, color: "#a78bfa" }}>Today</span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-          <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#a78bfa" }} />
-          <span style={{ fontSize: 10, color: "#8b5cf6" }}>Available</span>
+          <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#6b7280" }} />
+          <span style={{ fontSize: 10, color: "#a78bfa" }}>Available</span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
           <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#34d399" }} />
-          <span style={{ fontSize: 10, color: "#8b5cf6" }}>Booked</span>
+          <span style={{ fontSize: 10, color: "#a78bfa" }}>Booked</span>
         </div>
       </div>
     </div>
@@ -127,6 +127,43 @@ function MiniCalendar({ bookedSlots, bookedIds, onDateClick }) {
 }
 
 // ── Main App ────────────────────────────────────────────────────────────────
+// Header Component
+function Header({ page, onPageChange }) {
+  return (
+    <div style={{
+      background: "#000000",
+      padding: "20px 24px",
+      boxShadow: "0 4px 20px rgba(124,58,237,0.15)",
+      position: "sticky",
+      top: 0,
+      zIndex: 40
+    }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, cursor: "pointer" }} onClick={() => onPageChange("home")}>
+          <div style={{
+            width: 40,
+            height: 40,
+            borderRadius: 12,
+            background: "rgba(255,255,255,0.2)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 20,
+            backdropFilter: "blur(10px)",
+            border: "1px solid rgba(255,255,255,0.3)"
+          }}>
+            📅
+          </div>
+          <div>
+            <div style={{ fontSize: 18, fontWeight: 800, color: "#fff", letterSpacing: "-0.5px" }}>Vronix Digital</div>
+            <div style={{ fontSize: 10, color: "rgba(255,255,255,0.7)", fontWeight: 600, letterSpacing: "0.5px" }}>MEETING SCHEDULER</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   const [page, setPage] = useState("home");
   const [slotModalDate, setSlotModalDate] = useState(null);
@@ -224,27 +261,34 @@ export default function App() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "#fafafa", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "#000000", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+      <Header page={page} onPageChange={setPage} />
 
       {/* ══ HOME PAGE ════════════════════════════════════════════════════════ */}
       {page === "home" && (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "48px 16px 32px", position: "relative" }}>
 
           <button onClick={() => setPage("booked")} style={{
-            position: "absolute", top: 16, right: 16,
+            position: "absolute", top: 24, right: 16,
             display: "flex", alignItems: "center", gap: 6,
-            background: "#fff", color: "#7c3aed", border: "1px solid #ede9fe",
-            borderRadius: 20, padding: "7px 14px", fontSize: 12, fontWeight: 600,
-            cursor: "pointer", boxShadow: "0 1px 6px rgba(124,58,237,0.12)"
-          }}>
-            🗂️ Booked Slots
+            background: "rgba(255, 255, 255, 0.1)", color: "#a78bfa", border: "1px solid #7c3aed",
+            borderRadius: 20, padding: "8px 16px", fontSize: 13, fontWeight: 600,
+            cursor: "pointer", boxShadow: "0 2px 12px rgba(124,58,237,0.25)",
+            transition: "all 0.2s", backdropFilter: "blur(10px)"
+          }} onMouseEnter={(e) => { e.target.style.boxShadow = "0 4px 20px rgba(124,58,237,0.4)"; e.target.style.transform = "translateY(-2px)"; }} onMouseLeave={(e) => { e.target.style.boxShadow = "0 2px 12px rgba(124,58,237,0.25)"; e.target.style.transform = "translateY(0)"; }}>
+            🗂️ View Bookings
           </button>
 
-          <div style={{ textAlign: "center", marginBottom: 32 }}>
-            <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1e1b4b", margin: "0 0 8px", lineHeight: 1.2 }}>
-              Book a Meeting Slot
+          <div style={{ textAlign: "center", marginBottom: 40, maxWidth: 600 }}>
+            <div style={{ display: "inline-block", padding: "8px 16px", background: "rgba(124,58,237,0.2)", borderRadius: 20, marginBottom: 16 }}>
+              <span style={{ fontSize: 12, color: "#a78bfa", fontWeight: 700, letterSpacing: "0.5px" }}>✨ PROFESSIONAL MEETING SCHEDULING</span>
+            </div>
+            <h1 style={{ fontSize: 42, fontWeight: 800, color: "#ffffff", margin: "0 0 16px", lineHeight: 1.2, letterSpacing: "-1px" }}>
+              Schedule Your Meeting with<br /><span style={{ background: "linear-gradient(135deg, #7c3aed, #a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Vronix Digital</span>
             </h1>
-            <p style={{ fontSize: 13, color: "#6b7280", margin: "0 0 20px" }}></p>
+            <p style={{ fontSize: 16, color: "#d1d5db", margin: "0 0 32px", lineHeight: 1.6 }}>
+              Select your preferred date and time to meet with our team. Quick, simple, and professional.
+            </p>
             <button
               onClick={() => {
                 const t = new Date();
@@ -253,136 +297,161 @@ export default function App() {
                 setSlotModalDate(todayStr);
               }}
               style={{
-                background: "linear-gradient(135deg,#7c3aed,#a855f7)",
-                color: "#fff", border: "none", borderRadius: 14,
-                padding: "12px 28px", fontSize: 14, fontWeight: 700,
-                cursor: "pointer", boxShadow: "0 4px 20px rgba(124,58,237,0.35)",
-                letterSpacing: "0.3px"
+                background: "linear-gradient(135deg, #7c3aed, #a855f7)",
+                color: "#fff", border: "none", borderRadius: 16,
+                padding: "16px 40px", fontSize: 16, fontWeight: 700,
+                cursor: "pointer", boxShadow: "0 8px 32px rgba(124,58,237,0.4)",
+                letterSpacing: "0.3px", transition: "all 0.3s",
+                display: "inline-block"
               }}
+              onMouseEnter={(e) => { e.target.style.boxShadow = "0 12px 48px rgba(124,58,237,0.6)"; e.target.style.transform = "translateY(-4px)"; }}
+              onMouseLeave={(e) => { e.target.style.boxShadow = "0 8px 32px rgba(124,58,237,0.4)"; e.target.style.transform = "translateY(0)"; }}
             >
-              📅 Book Meeting
+              📅 Book Your Slot Now
             </button>
           </div>
 
-          <MiniCalendar bookedSlots={bookedSlots} bookedIds={bookedIds} onDateClick={setSlotModalDate} />
-          <p style={{ fontSize: 11, color: "#d1d5db", marginTop: 28 }}>© 2026 Vronix Digital</p>
+          <div style={{ maxWidth: 500, width: "100%", margin: "0 auto" }}>
+            <MiniCalendar bookedSlots={bookedSlots} bookedIds={bookedIds} onDateClick={setSlotModalDate} />
+          </div>
+
+          <div style={{ marginTop: 48, textAlign: "center", paddingTop: 32, borderTop: "1px solid rgba(124,58,237,0.2)" }}>
+            <p style={{ fontSize: 14, fontWeight: 600, color: "#a78bfa", margin: "0 0 8px" }}>© 2026 Vronix Digital</p>
+            <p style={{ fontSize: 12, color: "#6b7280", margin: 0 }}>Professional Consultation & Scheduling</p>
+          </div>
         </div>
       )}
 
       {/* ══ BOOKED SLOTS PAGE ════════════════════════════════════════════════ */}
       {page === "booked" && (
-        <div style={{ maxWidth: 480, margin: "0 auto", padding: "24px 16px 48px" }}>
+        <div style={{ maxWidth: 700, margin: "0 auto", padding: "32px 16px 48px" }}>
 
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", gap: 12, marginBottom: 24 }}>
+            <div style={{ display: "flex", alignItems: "center" }}>
               <button onClick={() => setPage("home")} style={{
-                width: 36, height: 36, borderRadius: "50%", border: "1px solid #e5e7eb",
-                background: "#fff", cursor: "pointer", fontSize: 16, color: "#6b7280",
+                width: 40, height: 40, borderRadius: 12, border: "1px solid #7c3aed",
+                background: "rgba(255,255,255,0.1)", cursor: "pointer", fontSize: 18, color: "#a78bfa",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                boxShadow: "0 1px 4px rgba(0,0,0,0.06)"
-              }}>←</button>
-              <div>
-                <h2 style={{ fontSize: 17, fontWeight: 700, color: "#1e1b4b", margin: 0 }}>Booked Slots</h2>
-                <p style={{ fontSize: 12, color: "#9ca3af", margin: 0 }}>{bookedSlots.length} total</p>
-              </div>
+                boxShadow: "0 2px 8px rgba(124,58,237,0.15)", transition: "all 0.2s", backdropFilter: "blur(10px)"
+              }} onMouseEnter={(e) => { e.target.style.boxShadow = "0 4px 16px rgba(124,58,237,0.25)"; e.target.style.transform = "translateY(-2px)"; }} onMouseLeave={(e) => { e.target.style.boxShadow = "0 2px 8px rgba(124,58,237,0.15)"; e.target.style.transform = "translateY(0)"; }}>←</button>
+            </div>
+            <div style={{ textAlign: "center" }}>
+              <h2 style={{ fontSize: 24, fontWeight: 800, color: "#ffffff", margin: 0 }}>BOOKED SLOTS</h2>
+              <p style={{ fontSize: 13, color: "#a78bfa", margin: "4px 0 0" }}>Vronix Digital</p>
             </div>
 
             <button
               onClick={() => setShowFilter((f) => !f)}
               style={{
-                display: "flex", alignItems: "center", gap: 5,
-                background: hasFilter ? "#7c3aed" : "#fff",
-                color: hasFilter ? "#fff" : "#7c3aed",
-                border: "1px solid #ede9fe", borderRadius: 20,
-                padding: "7px 13px", fontSize: 12, fontWeight: 600,
-                cursor: "pointer", boxShadow: "0 1px 6px rgba(124,58,237,0.10)"
+                justifySelf: "end",
+                display: "flex", alignItems: "center", gap: 6,
+                background: hasFilter ? "linear-gradient(135deg, #7c3aed, #a855f7)" : "rgba(255,255,255,0.1)",
+                color: hasFilter ? "#fff" : "#a78bfa",
+                border: "1px solid #7c3aed", borderRadius: 12,
+                padding: "10px 14px", fontSize: 13, fontWeight: 600,
+                cursor: "pointer", boxShadow: "0 2px 8px rgba(124,58,237,0.15)", transition: "all 0.2s", backdropFilter: "blur(10px)"
               }}
+              onMouseEnter={(e) => { e.target.style.boxShadow = "0 4px 16px rgba(124,58,237,0.25)"; }}
+              onMouseLeave={(e) => { e.target.style.boxShadow = "0 2px 8px rgba(124,58,237,0.15)"; }}
             >
-              📅 Filter {hasFilter && "•"}
+              🔍 Filter {hasFilter && "•"}
             </button>
           </div>
 
           {/* Filter Panel */}
           {showFilter && (
             <div style={{
-              background: "#fff", borderRadius: 14, padding: "14px 16px",
-              marginBottom: 16, border: "1px solid #ede9fe",
-              boxShadow: "0 2px 12px rgba(124,58,237,0.08)"
+              background: "rgba(255,255,255,0.08)", borderRadius: 16, padding: "16px 20px",
+              marginBottom: 20, border: "1px solid #7c3aed",
+              boxShadow: "0 4px 20px rgba(124,58,237,0.2)", backdropFilter: "blur(10px)"
             }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-                <select value={filterDay} onChange={(e) => setFilterDay(e.target.value)} style={selectStyle}>
+                <select value={filterDay} onChange={(e) => setFilterDay(e.target.value)} style={{...selectStyle, background: "rgba(255,255,255,0.1)", color: "#a78bfa", border: "1px solid #7c3aed", backdropFilter: "blur(10px)"}}>
                   <option value="">All Dates</option>
                   {Array.from({ length: daysInMonth }, (_, i) => i + 1).map((d) => (
                     <option key={d} value={d}>{String(d).padStart(2, "0")}</option>
                   ))}
                 </select>
-                <select value={filterMonth} onChange={(e) => { setFilterMonth(e.target.value); setFilterDay(""); }} style={selectStyle}>
+                <select value={filterMonth} onChange={(e) => { setFilterMonth(e.target.value); setFilterDay(""); }} style={{...selectStyle, background: "rgba(255,255,255,0.1)", color: "#a78bfa", border: "1px solid #7c3aed", backdropFilter: "blur(10px)"}}>
                   <option value="">All Months</option>
                   {months.map((mn, i) => <option key={i} value={i + 1}>{mn}</option>)}
                 </select>
                 <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                  <button onClick={() => setYearRangeStart((y) => y - YEAR_PAGE)} style={{ border: "1px solid #e5e7eb", borderRadius: 6, padding: "5px 8px", background: "#fff", cursor: "pointer", fontSize: 12, color: "#7c3aed", lineHeight: 1 }}>‹</button>
-                  <select value={filterYear} onChange={(e) => { setFilterYear(e.target.value); setFilterDay(""); }} style={selectStyle}>
+                  <button onClick={() => setYearRangeStart((y) => y - YEAR_PAGE)} style={{ border: "1px solid #7c3aed", borderRadius: 8, padding: "6px 10px", background: "rgba(255,255,255,0.1)", cursor: "pointer", fontSize: 12, color: "#a78bfa", lineHeight: 1, fontWeight: 600, transition: "all 0.2s" }} onMouseEnter={(e) => { e.target.style.background = "rgba(124,58,237,0.2)"; }} onMouseLeave={(e) => { e.target.style.background = "rgba(255,255,255,0.1)"; }}>‹</button>
+                  <select value={filterYear} onChange={(e) => { setFilterYear(e.target.value); setFilterDay(""); }} style={{...selectStyle, background: "rgba(255,255,255,0.1)", color: "#a78bfa", border: "1px solid #7c3aed", backdropFilter: "blur(10px)"}}>
                     <option value="">All Years</option>
                     {years.map((y) => <option key={y} value={y}>{y}</option>)}
                   </select>
-                  <button onClick={() => setYearRangeStart((y) => y + YEAR_PAGE)} style={{ border: "1px solid #e5e7eb", borderRadius: 6, padding: "5px 8px", background: "#fff", cursor: "pointer", fontSize: 12, color: "#7c3aed", lineHeight: 1 }}>›</button>
+                  <button onClick={() => setYearRangeStart((y) => y + YEAR_PAGE)} style={{ border: "1px solid #7c3aed", borderRadius: 8, padding: "6px 10px", background: "rgba(255,255,255,0.1)", cursor: "pointer", fontSize: 12, color: "#a78bfa", lineHeight: 1, fontWeight: 600, transition: "all 0.2s" }} onMouseEnter={(e) => { e.target.style.background = "rgba(124,58,237,0.2)"; }} onMouseLeave={(e) => { e.target.style.background = "rgba(255,255,255,0.1)"; }}>›</button>
                 </div>
                 {hasFilter && (
-                  <button onClick={clearFilter} style={{ background: "none", border: "1px solid #fca5a5", borderRadius: 8, color: "#ef4444", fontSize: 11, fontWeight: 600, padding: "6px 10px", cursor: "pointer" }}>
-                    ✕ Clear
+                  <button onClick={clearFilter} style={{ background: "none", border: "1px solid #ef4444", borderRadius: 8, color: "#ef4444", fontSize: 12, fontWeight: 600, padding: "6px 12px", cursor: "pointer", transition: "all 0.2s" }} onMouseEnter={(e) => { e.target.style.background = "rgba(239,68,68,0.1)"; }} onMouseLeave={(e) => { e.target.style.background = "none"; }}>
+                    ✕ Clear Filters
                   </button>
                 )}
               </div>
               {hasFilter && (
-                <div style={{ display: "flex", gap: 6, marginTop: 10, flexWrap: "wrap" }}>
-                  {filterDay && <span style={{ fontSize: 11, background: "#ede9fe", color: "#7c3aed", borderRadius: 20, padding: "3px 10px", fontWeight: 600 }}>Day: {String(filterDay).padStart(2,"0")}</span>}
-                  {filterMonth && <span style={{ fontSize: 11, background: "#ede9fe", color: "#7c3aed", borderRadius: 20, padding: "3px 10px", fontWeight: 600 }}>Month: {months[Number(filterMonth) - 1]}</span>}
-                  {filterYear && <span style={{ fontSize: 11, background: "#ede9fe", color: "#7c3aed", borderRadius: 20, padding: "3px 10px", fontWeight: 600 }}>Year: {filterYear}</span>}
+                <div style={{ display: "flex", gap: 8, marginTop: 12, flexWrap: "wrap" }}>
+                  {filterDay && <span style={{ fontSize: 12, background: "rgba(124,58,237,0.3)", color: "#a78bfa", borderRadius: 20, padding: "4px 12px", fontWeight: 600 }}>📅 Day: {String(filterDay).padStart(2,"0")}</span>}
+                  {filterMonth && <span style={{ fontSize: 12, background: "rgba(124,58,237,0.3)", color: "#a78bfa", borderRadius: 20, padding: "4px 12px", fontWeight: 600 }}>📆 Month: {months[Number(filterMonth) - 1]}</span>}
+                  {filterYear && <span style={{ fontSize: 12, background: "rgba(124,58,237,0.3)", color: "#a78bfa", borderRadius: 20, padding: "4px 12px", fontWeight: 600 }}>📅 Year: {filterYear}</span>}
                 </div>
               )}
             </div>
           )}
 
-          <p style={{ fontSize: 12, color: "#9ca3af", marginBottom: 12 }}>
-            {filteredBookings.length} booking{filteredBookings.length !== 1 ? "s" : ""} found
+          <p style={{ fontSize: 13, color: "#d1d5db", marginBottom: 16, fontWeight: 600 }}>
+            {filteredBookings.length} booking{filteredBookings.length !== 1 ? "s" : ""}
           </p>
 
           {filteredBookings.length === 0 ? (
-            <div style={{ textAlign: "center", padding: "56px 0" }}>
-              <div style={{ fontSize: 40, marginBottom: 12 }}>🗂️</div>
-              <p style={{ fontSize: 14, color: "#9ca3af" }}>No bookings found</p>
+            <div style={{ textAlign: "center", padding: "80px 24px", background: "rgba(255,255,255,0.08)", borderRadius: 16, border: "1px solid #7c3aed", backdropFilter: "blur(10px)" }}>
+              <div style={{ fontSize: 56, marginBottom: 16 }}>📅</div>
+              <p style={{ fontSize: 16, fontWeight: 600, color: "#ffffff", marginBottom: 8 }}>No bookings yet</p>
+              <p style={{ fontSize: 14, color: "#9ca3af", marginBottom: 20 }}>Start by booking your first meeting</p>
+              <button onClick={() => setPage("home")} style={{
+                background: "linear-gradient(135deg, #7c3aed, #a855f7)",
+                color: "#fff", border: "none", borderRadius: 12,
+                padding: "10px 24px", fontSize: 14, fontWeight: 700,
+                cursor: "pointer", transition: "all 0.2s"
+              }} onMouseEnter={(e) => { e.target.style.boxShadow = "0 8px 24px rgba(124,58,237,0.3)"; e.target.style.transform = "translateY(-2px)"; }} onMouseLeave={(e) => { e.target.style.boxShadow = "0 4px 12px rgba(124,58,237,0.1)"; e.target.style.transform = "translateY(0)"; }}>
+                📅 Book Now
+              </button>
             </div>
           ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               {filteredBookings.map((b, idx) => (
                 <div key={idx} style={{
-                  background: "#fff", borderRadius: 16, padding: 16,
-                  border: "1px solid #f0fdf4", boxShadow: "0 1px 6px rgba(0,0,0,0.05)",
-                  borderLeft: "4px solid #34d399"
-                }}>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-                    <span style={{ fontSize: 11, fontWeight: 600, color: "#059669", background: "#ecfdf5", padding: "3px 10px", borderRadius: 20 }}>📅 {formatDate(b.date)}</span>
-                    <span style={{ fontSize: 11, color: "#6b7280", fontWeight: 500 }}>🕐 {b.start}–{b.end}</span>
+                  background: "rgba(255,255,255,0.08)", borderRadius: 16, padding: 18,
+                  border: "1px solid #7c3aed", boxShadow: "0 2px 12px rgba(124,58,237,0.1)",
+                  borderLeft: "4px solid #a78bfa", transition: "all 0.2s", backdropFilter: "blur(10px)"
+                }} onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 8px 24px rgba(124,58,237,0.25)"; e.currentTarget.style.transform = "translateY(-2px)"; }} onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 2px 12px rgba(124,58,237,0.1)"; e.currentTarget.style.transform = "translateY(0)"; }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: "#a78bfa", background: "rgba(124,58,237,0.2)", padding: "4px 12px", borderRadius: 20 }}>📅 {formatDate(b.date)}</span>
+                    <span style={{ fontSize: 12, color: "#d1d5db", fontWeight: 600 }}>🕐 {b.start}–{b.end}</span>
                   </div>
-                  {b.name && <p style={{ fontSize: 14, fontWeight: 600, color: "#1e1b4b", margin: "0 0 2px" }}>{b.name}</p>}
-                  {b.email && <p style={{ fontSize: 12, color: "#6b7280", margin: "0 0 2px" }}>{b.email}</p>}
-                  {b.designation && <p style={{ fontSize: 11, color: "#9ca3af", margin: "0 0 10px" }}>💼 {b.designation}{b.company ? ` @ ${b.company}` : ""}</p>}
+                  {b.name && <p style={{ fontSize: 15, fontWeight: 700, color: "#ffffff", margin: "0 0 4px" }}>{b.name}</p>}
+                  {b.email && <p style={{ fontSize: 13, color: "#a78bfa", margin: "0 0 2px" }}>{b.email}</p>}
+                  {b.designation && <p style={{ fontSize: 12, color: "#9ca3af", margin: "0 0 12px" }}>💼 {b.designation}{b.company ? ` @ ${b.company}` : ""}</p>}
 
                   {/* ── Cancel Section ── */}
                   {cancelConfirmId === b.id ? (
-                    <div style={{ background: "#fff5f5", borderRadius: 10, padding: "10px 12px", border: "1px solid #fecaca", marginTop: 4 }}>
-                      <p style={{ fontSize: 12, color: "#dc2626", fontWeight: 600, margin: "0 0 8px" }}>Cancel this booking?</p>
-                      <div style={{ display: "flex", gap: 8 }}>
+                    <div style={{ background: "rgba(239,68,68,0.1)", borderRadius: 12, padding: "12px 14px", border: "1px solid #ef4444", marginTop: 6 }}>
+                      <p style={{ fontSize: 13, color: "#ef4444", fontWeight: 700, margin: "0 0 10px" }}>Cancel this booking?</p>
+                      <div style={{ display: "flex", gap: 10 }}>
                         <button
                           onClick={() => handleCancel(b.id)}
-                          style={{ flex: 1, background: "#dc2626", color: "#fff", border: "none", borderRadius: 8, padding: "8px 0", fontSize: 12, fontWeight: 700, cursor: "pointer" }}
+                          style={{ flex: 1, background: "#ef4444", color: "#fff", border: "none", borderRadius: 8, padding: "10px 0", fontSize: 13, fontWeight: 700, cursor: "pointer", transition: "all 0.2s" }}
+                          onMouseEnter={(e) => { e.target.style.background = "#dc2626"; }}
+                          onMouseLeave={(e) => { e.target.style.background = "#ef4444"; }}
                         >
                           Yes, Cancel
                         </button>
                         <button
                           onClick={() => setCancelConfirmId(null)}
-                          style={{ flex: 1, background: "#f9fafb", color: "#6b7280", border: "1px solid #e5e7eb", borderRadius: 8, padding: "8px 0", fontSize: 12, fontWeight: 600, cursor: "pointer" }}
+                          style={{ flex: 1, background: "rgba(255,255,255,0.1)", color: "#a78bfa", border: "1px solid #7c3aed", borderRadius: 8, padding: "10px 0", fontSize: 13, fontWeight: 600, cursor: "pointer", transition: "all 0.2s" }}
+                          onMouseEnter={(e) => { e.target.style.background = "rgba(124,58,237,0.2)"; }}
+                          onMouseLeave={(e) => { e.target.style.background = "rgba(255,255,255,0.1)"; }}
                         >
                           Keep it
                         </button>
@@ -391,9 +460,11 @@ export default function App() {
                   ) : (
                     <button
                       onClick={() => setCancelConfirmId(b.id)}
-                      style={{ marginTop: 4, display: "flex", alignItems: "center", gap: 5, background: "none", border: "1px solid #fca5a5", borderRadius: 8, color: "#ef4444", fontSize: 11, fontWeight: 600, padding: "6px 12px", cursor: "pointer" }}
+                      style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 6, background: "none", border: "1px solid #ef4444", borderRadius: 8, color: "#ef4444", fontSize: 12, fontWeight: 600, padding: "8px 12px", cursor: "pointer", transition: "all 0.2s" }}
+                      onMouseEnter={(e) => { e.target.style.background = "rgba(239,68,68,0.1)"; }}
+                      onMouseLeave={(e) => { e.target.style.background = "none"; }}
                     >
-                      🗑️ Cancel Slot
+                      🗑️ Cancel Booking
                     </button>
                   )}
                 </div>
@@ -406,36 +477,36 @@ export default function App() {
       {/* ══ SLOT PICKER MODAL ════════════════════════════════════════════════ */}
       {slotModalDate && (
         <div onClick={closeSlotModal} style={{
-          position: "fixed", inset: 0, background: "rgba(0,0,0,0.55)",
+          position: "fixed", inset: 0, background: "rgba(0,0,0,0.8)",
           display: "flex", alignItems: "flex-end", justifyContent: "center",
-          zIndex: 50, padding: "0 12px 12px"
+          zIndex: 50, padding: "0 12px 12px", backdropFilter: "blur(8px)"
         }}>
           <div onClick={(e) => e.stopPropagation()} style={{
-            background: "#fff", borderRadius: 24, padding: 24,
-            width: "100%", maxWidth: 400, maxHeight: "80vh", overflowY: "auto",
-            boxShadow: "0 -8px 40px rgba(0,0,0,0.15)"
+            background: "linear-gradient(180deg, #1a1a2e 0%, #0f1419 100%)", borderRadius: 24, padding: 28,
+            width: "100%", maxWidth: 450, maxHeight: "80vh", overflowY: "auto",
+            boxShadow: "0 20px 60px rgba(124,58,237,0.5)", border: "1px solid #7c3aed"
           }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-              <p style={{ fontWeight: 700, fontSize: 16, color: "#1e1b4b", margin: 0 }}>{formatDate(slotModalDate)}</p>
-              <button onClick={closeSlotModal} style={{ background: "none", border: "none", fontSize: 18, color: "#9ca3af", cursor: "pointer" }}>✕</button>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+              <p style={{ fontWeight: 700, fontSize: 18, color: "#ffffff", margin: 0 }}>{formatDate(slotModalDate)}</p>
+              <button onClick={closeSlotModal} style={{ background: "none", border: "none", fontSize: 20, color: "#9ca3af", cursor: "pointer", padding: 0, transition: "all 0.2s" }} onMouseEnter={(e) => { e.target.style.color = "#a78bfa"; }} onMouseLeave={(e) => { e.target.style.color = "#9ca3af"; }}>✕</button>
             </div>
-            <p style={{ fontSize: 12, color: "#9ca3af", margin: "0 0 16px" }}>Select a time slot</p>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+            <p style={{ fontSize: 13, color: "#a78bfa", margin: "0 0 20px", fontWeight: 500 }}>Select your preferred time slot with Vronix Digital</p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
               {DAY_SLOTS.map((t, idx) => {
                 const slotId = `slot-${slotModalDate}-${t.start}`;
                 const isBooked = bookedIds.includes(slotId);
                 return (
                   <button key={idx} onClick={() => !isBooked && pickSlot(t)} disabled={isBooked} style={{
-                    border: isBooked ? "1.5px solid #a7f3d0" : "1.5px solid #ede9fe",
-                    borderRadius: 12, padding: "12px 8px", fontSize: 12, fontWeight: 500,
+                    border: isBooked ? "1.5px solid #4b5563" : "1.5px solid #7c3aed",
+                    borderRadius: 14, padding: "14px 10px", fontSize: 13, fontWeight: 600,
                     cursor: isBooked ? "not-allowed" : "pointer",
-                    background: isBooked ? "#f0fdf4" : "#faf5ff",
-                    color: isBooked ? "#059669" : "#7c3aed",
-                    transition: "all 0.15s", display: "flex", flexDirection: "column",
-                    alignItems: "center", gap: 2
-                  }}>
+                    background: isBooked ? "rgba(75,85,99,0.3)" : "rgba(124,58,237,0.2)",
+                    color: isBooked ? "#6b7280" : "#a78bfa",
+                    transition: "all 0.2s", display: "flex", flexDirection: "column",
+                    alignItems: "center", gap: 4, opacity: isBooked ? 0.6 : 1
+                  }} onMouseEnter={(e) => { if (!isBooked) { e.target.style.background = "rgba(124,58,237,0.35)"; e.target.style.borderColor = "#a78bfa"; e.target.style.boxShadow = "0 4px 12px rgba(124,58,237,0.25)"; } }} onMouseLeave={(e) => { if (!isBooked) { e.target.style.background = "rgba(124,58,237,0.2)"; e.target.style.borderColor = "#7c3aed"; e.target.style.boxShadow = "none"; } }}>
                     <span>🕐 {t.start}–{t.end}</span>
-                    {isBooked && <span style={{ fontSize: 10, color: "#34d399" }}>✓ Booked</span>}
+                    {isBooked && <span style={{ fontSize: 11, color: "#6b7280", fontWeight: 600 }}>✓ Booked</span>}
                   </button>
                 );
               })}
@@ -447,45 +518,53 @@ export default function App() {
       {/* ══ BOOKING FORM MODAL ═══════════════════════════════════════════════ */}
       {selectedSlot && (
         <div onClick={closeFormModal} style={{
-          position: "fixed", inset: 0, background: "rgba(0,0,0,0.55)",
+          position: "fixed", inset: 0, background: "rgba(0,0,0,0.8)",
           display: "flex", alignItems: "flex-end", justifyContent: "center",
-          zIndex: 50, padding: "0 12px 12px"
+          zIndex: 50, padding: "0 12px 12px", backdropFilter: "blur(8px)"
         }}>
           <div onClick={(e) => e.stopPropagation()} style={{
-            background: "#fff", borderRadius: 24, padding: 24,
-            width: "100%", maxWidth: 400, maxHeight: "92vh", overflowY: "auto",
-            boxShadow: "0 -8px 40px rgba(0,0,0,0.15)"
+            background: "linear-gradient(180deg, #1a1a2e 0%, #0f1419 100%)", borderRadius: 24, padding: 28,
+            width: "100%", maxWidth: 450, maxHeight: "92vh", overflowY: "auto",
+            boxShadow: "0 20px 60px rgba(124,58,237,0.5)", animation: "slideUp 0.3s ease-out", border: "1px solid #7c3aed"
           }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-              <p style={{ fontWeight: 700, fontSize: 16, color: "#1e1b4b", margin: 0 }}>Your Details</p>
-              <button onClick={closeFormModal} style={{ background: "none", border: "none", fontSize: 18, color: "#9ca3af", cursor: "pointer" }}>✕</button>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+              <div>
+                <p style={{ fontWeight: 700, fontSize: 18, color: "#ffffff", margin: 0 }}>Complete Your Details</p>
+                <p style={{ fontSize: 12, color: "#a78bfa", margin: "6px 0 0" }}>Vronix Digital</p>
+              </div>
+              <button onClick={closeFormModal} style={{ background: "none", border: "none", fontSize: 20, color: "#9ca3af", cursor: "pointer", padding: 0, transition: "all 0.2s" }} onMouseEnter={(e) => { e.target.style.color = "#a78bfa"; }} onMouseLeave={(e) => { e.target.style.color = "#9ca3af"; }}>✕</button>
             </div>
-            <div style={{ background: "linear-gradient(135deg,#1a1a2e,#0f3460)", borderRadius: 14, padding: "14px 16px", marginBottom: 20 }}>
-              <p style={{ fontSize: 10, color: "rgba(167,139,250,0.8)", fontWeight: 600, letterSpacing: "0.8px", textTransform: "uppercase", margin: "0 0 6px" }}>Your Booking</p>
-              <p style={{ fontSize: 13, color: "#e9d5ff", fontWeight: 600, margin: "0 0 2px" }}>📅 {formatDate(selectedSlot.date)}</p>
-              <p style={{ fontSize: 12, color: "rgba(167,139,250,0.8)", margin: 0 }}>🕐 {selectedSlot.start}–{selectedSlot.end} IST</p>
+            <div style={{ background: "linear-gradient(135deg, #7c3aed, #a855f7)", borderRadius: 16, padding: "18px 20px", marginBottom: 24 }}>
+              <p style={{ fontSize: 11, color: "rgba(255,255,255,0.7)", fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", margin: "0 0 8px" }}>📅 Your Selected Slot</p>
+              <p style={{ fontSize: 16, color: "#fff", fontWeight: 700, margin: "0 0 4px" }}>{formatDate(selectedSlot.date)}</p>
+              <p style={{ fontSize: 14, color: "rgba(255,255,255,0.8)", margin: 0, fontWeight: 600 }}>🕐 {selectedSlot.start}–{selectedSlot.end} IST</p>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 20 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 14, marginBottom: 24 }}>
               {[
-                { label: "Full Name", value: name, set: setName, placeholder: "Your name", type: "text" },
+                { label: "Full Name", value: name, set: setName, placeholder: "John Doe", type: "text" },
                 { label: "Email Address", value: email, set: setEmail, placeholder: "you@example.com", type: "email" },
-                { label: "Designation", value: designation, set: setDesignation, placeholder: "e.g. Marketing Manager", type: "text" },
+                { label: "Your Designation", value: designation, set: setDesignation, placeholder: "e.g. Marketing Manager", type: "text" },
                 { label: "Company Name", value: company, set: setCompany, placeholder: "Your company", type: "text" },
               ].map(({ label, value, set, placeholder, type }) => (
                 <div key={label}>
-                  <label style={{ fontSize: 11, color: "#6b7280", fontWeight: 600, display: "block", marginBottom: 5 }}>{label}</label>
-                  <input type={type} value={value} onChange={(e) => set(e.target.value)} placeholder={placeholder} style={inputStyle} />
+                  <label style={{ fontSize: 12, color: "#a78bfa", fontWeight: 700, display: "block", marginBottom: 6, letterSpacing: "0.3px" }}>{label}</label>
+                  <input type={type} value={value} onChange={(e) => set(e.target.value)} placeholder={placeholder} style={{
+                    width: "100%", border: "1.5px solid #7c3aed", borderRadius: 12,
+                    padding: "12px 14px", fontSize: 14, outline: "none", boxSizing: "border-box",
+                    background: "rgba(255,255,255,0.08)", color: "#ffffff", transition: "all 0.2s", fontWeight: 500, backdropFilter: "blur(10px)"
+                  }} onFocus={(e) => { e.target.style.borderColor = "#a855f7"; e.target.style.background = "rgba(124,58,237,0.15)"; }} onBlur={(e) => { e.target.style.borderColor = "#7c3aed"; e.target.style.background = "rgba(255,255,255,0.08)"; }} />
                 </div>
               ))}
             </div>
             <button onClick={handleConfirm} style={{
-              width: "100%", background: "linear-gradient(135deg,#7c3aed,#a855f7)",
-              color: "#fff", border: "none", borderRadius: 14, padding: "14px 0",
-              fontSize: 14, fontWeight: 700, cursor: "pointer",
-              boxShadow: "0 4px 20px rgba(124,58,237,0.4)", letterSpacing: "0.3px"
-            }}>
+              width: "100%", background: "linear-gradient(135deg, #7c3aed, #a855f7)",
+              color: "#fff", border: "none", borderRadius: 14, padding: "16px 0",
+              fontSize: 15, fontWeight: 700, cursor: "pointer",
+              boxShadow: "0 8px 32px rgba(124,58,237,0.4)", letterSpacing: "0.3px", transition: "all 0.2s"
+            }} onMouseEnter={(e) => { e.target.style.boxShadow = "0 12px 48px rgba(124,58,237,0.6)"; e.target.style.transform = "translateY(-2px)"; }} onMouseLeave={(e) => { e.target.style.boxShadow = "0 8px 32px rgba(124,58,237,0.4)"; e.target.style.transform = "translateY(0)"; }}>
               📅 Confirm & Open Google Calendar
             </button>
+            <p style={{ fontSize: 11, color: "#9ca3af", textAlign: "center", margin: "16px 0 0" }}>You'll be redirected to Google Calendar to finalize the meeting</p>
           </div>
         </div>
       )}
@@ -494,22 +573,22 @@ export default function App() {
       {bookedToast && (
         <div style={{
           position: "fixed", bottom: 24, left: 16, right: 16,
-          background: "linear-gradient(135deg,#1a1a2e,#0f3460)",
-          borderRadius: 18, padding: "16px 20px",
-          display: "flex", alignItems: "center", gap: 14,
-          boxShadow: "0 8px 32px rgba(0,0,0,0.35)", zIndex: 60,
-          border: "1px solid rgba(52,211,153,0.3)"
+          background: "linear-gradient(135deg, #059669, #34d399)",
+          borderRadius: 16, padding: "18px 22px",
+          display: "flex", alignItems: "center", gap: 16,
+          boxShadow: "0 12px 48px rgba(52,211,153,0.6)", zIndex: 60,
+          border: "1px solid rgba(52,211,153,0.8)", maxWidth: 450, marginLeft: "auto", marginRight: "auto", animation: "slideUp 0.3s ease-out"
         }}>
-          <div style={{ width: 38, height: 38, borderRadius: "50%", background: "linear-gradient(135deg,#059669,#34d399)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, boxShadow: "0 0 16px rgba(52,211,153,0.5)" }}>
-            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#fff" strokeWidth={3}>
+          <div style={{ width: 42, height: 42, borderRadius: "50%", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, boxShadow: "0 0 20px rgba(52,211,153,0.8)", backdropFilter: "blur(10px)" }}>
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#fff" strokeWidth={3}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
           </div>
           <div style={{ flex: 1 }}>
-            <p style={{ fontWeight: 700, color: "#fff", fontSize: 14, margin: "0 0 2px" }}>Booking Confirmed!</p>
-            <p style={{ fontSize: 12, color: "rgba(52,211,153,0.8)", margin: 0 }}>Opening Google Calendar...</p>
+            <p style={{ fontWeight: 800, color: "#fff", fontSize: 15, margin: "0 0 2px", letterSpacing: "-0.3px" }}>Booking Confirmed! 🎉</p>
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.9)", margin: 0, fontWeight: 500 }}>Opening Google Calendar to finalize...</p>
           </div>
-          <button onClick={() => setBookedToast(false)} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.4)", fontSize: 18, cursor: "pointer" }}>✕</button>
+          <button onClick={() => setBookedToast(false)} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.6)", fontSize: 20, cursor: "pointer", padding: 0, transition: "all 0.2s" }} onMouseEnter={(e) => { e.target.style.color = "#fff"; }} onMouseLeave={(e) => { e.target.style.color = "rgba(255,255,255,0.6)"; }}>✕</button>
         </div>
       )}
 
@@ -517,24 +596,31 @@ export default function App() {
       {cancelToast && (
         <div style={{
           position: "fixed", bottom: 24, left: 16, right: 16,
-          background: "#1f2937", borderRadius: 18, padding: "16px 20px",
-          display: "flex", alignItems: "center", gap: 14,
-          boxShadow: "0 8px 32px rgba(0,0,0,0.35)", zIndex: 60,
-          border: "1px solid rgba(239,68,68,0.3)"
+          background: "linear-gradient(135deg, #ef4444, #f87171)",
+          borderRadius: 16, padding: "18px 22px",
+          display: "flex", alignItems: "center", gap: 16,
+          boxShadow: "0 12px 48px rgba(239,68,68,0.6)", zIndex: 60,
+          border: "1px solid rgba(239,68,68,0.8)", maxWidth: 450, marginLeft: "auto", marginRight: "auto", animation: "slideUp 0.3s ease-out"
         }}>
-          <div style={{ width: 38, height: 38, borderRadius: "50%", background: "#ef4444", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#fff" strokeWidth={3}>
+          <div style={{ width: 42, height: 42, borderRadius: "50%", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, backdropFilter: "blur(10px)" }}>
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#fff" strokeWidth={3}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
           <div style={{ flex: 1 }}>
-            <p style={{ fontWeight: 700, color: "#fff", fontSize: 14, margin: "0 0 2px" }}>Slot Cancelled</p>
-            <p style={{ fontSize: 12, color: "rgba(252,165,165,0.8)", margin: 0 }}>The booking has been removed.</p>
+            <p style={{ fontWeight: 800, color: "#fff", fontSize: 15, margin: "0 0 2px", letterSpacing: "-0.3px" }}>Booking Cancelled</p>
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.9)", margin: 0, fontWeight: 500 }}>The slot has been freed up for others.</p>
           </div>
-          <button onClick={() => setCancelToast(false)} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.4)", fontSize: 18, cursor: "pointer" }}>✕</button>
+          <button onClick={() => setCancelToast(false)} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.6)", fontSize: 20, cursor: "pointer", padding: 0, transition: "all 0.2s" }} onMouseEnter={(e) => { e.target.style.color = "#fff"; }} onMouseLeave={(e) => { e.target.style.color = "rgba(255,255,255,0.6)"; }}>✕</button>
         </div>
       )}
 
+      <style>{`
+        @keyframes slideUp {
+          from { transform: translateY(100px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+      `}</style>
     </div>
   );
 }
